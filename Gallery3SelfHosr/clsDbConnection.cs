@@ -7,7 +7,7 @@ using System.Data;
 using System.Data.Common;
 using System.Configuration;
 
-namespace Gallery3SelfHost
+namespace Gallery3WinForm
 {
     static class clsDbConnection
     {
