@@ -91,9 +91,9 @@ namespace Gallery3WinForm
 
         private void pushData()
         {
-//            _Artist.Name = txtName.Text;
-//            _Artist.Speciality = txtSpeciality.Text;
-//            _Artist.Phone = txtPhone.Text;
+            _Artist.Name = txtName.Text;
+            _Artist.Speciality = txtSpeciality.Text;
+            _Artist.Phone = txtPhone.Text;
             //_WorksList.SortOrder = _SortOrder; // no longer required, updated with each rbByDate_CheckedChanged
         }
 
@@ -134,25 +134,18 @@ namespace Gallery3WinForm
             }
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
+        private async void btnClose_Click(object sender, EventArgs e)
         {
-            if (isValid() == true)
-                try
-                {
-                    pushData();
-                    if (txtName.Enabled)
-                    {
-//                        _Artist.NewArtist();
-                        MessageBox.Show("Artist added!", "Success");
-//                        frmMain.Instance.UpdateDisplay();
-                        txtName.Enabled = false;
-                    }
-                    Hide();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+            pushData();
+            if (txtName.Enabled)
+            {
+                MessageBox.Show(await ServiceClient.InsertArtistAsync(_Artist));
+                frmMain.Instance.UpdateDisplay();
+                txtName.Enabled = false;
+            }
+            else
+                MessageBox.Show(await ServiceClient.UpdateArtistAsync(_Artist));
+            Hide();
         }
 
         private Boolean isValid()

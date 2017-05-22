@@ -51,6 +51,7 @@ namespace Gallery3WinForm
         {
             try
             {
+                frmArtist.Run(null);
 //                frmArtist.Run(new clsArtist(_ArtistList));
             }
             catch (Exception ex)
