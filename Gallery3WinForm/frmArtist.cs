@@ -69,10 +69,10 @@ namespace Gallery3WinForm
 
         public void UpdateForm()
         {
-//            txtName.Text = _Artist.Name;
-//            txtSpeciality.Text = _Artist.Speciality;
-//            txtPhone.Text = _Artist.Phone;
-//            _WorksList = _Artist.WorksList;
+            txtName.Text = _Artist.Name;
+            txtSpeciality.Text = _Artist.Speciality;
+            txtPhone.Text = _Artist.Phone;
+         //   _WorksList = _Artist.WorksList;
 
             //frmMain.Instance.GalleryNameChanged += new frmMain.Notify(updateTitle);
             //updateTitle(_Artist.ArtistList.GalleryName);
