@@ -7,6 +7,7 @@ namespace Gallery3WinForm
     public partial class frmArtist : Form
     {
         private clsArtist _Artist;
+        private string _ArtistDisplay;
   //      private clsWorksList _WorksList;
 
         private static Dictionary<string, frmArtist> _ArtistFormList = new Dictionary<string, frmArtist>();
@@ -117,7 +118,8 @@ namespace Gallery3WinForm
         {
             try
             {
-//                _WorksList.EditWork(lstWorks.SelectedIndex);
+                //                _WorksList.EditWork(lstWorks.SelectedIndex);
+                frmWork.DispatchWorkForm(lstWorks.SelectedValue as clsAllWork);
                 UpdateDisplay();
 //                frmMain.Instance.UpdateDisplay();
             }

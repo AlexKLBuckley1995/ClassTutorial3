@@ -1,6 +1,6 @@
 using System;
 
-namespace Version_3_C
+namespace Gallery3WinForm
 {
     [Serializable()]
     public class clsPhotograph : clsWork

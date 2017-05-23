@@ -54,6 +54,7 @@ namespace Gallery3WinForm
         {
             return new clsAllWork()
             {
+                WorkType = Convert.ToChar(prDataRow["WorkType"]),
                 Name = Convert.ToString(prDataRow["Name"]),
                 Date = Convert.ToDateTime(prDataRow["Date"]),
                 Value = Convert.ToDecimal(prDataRow["Value"]),

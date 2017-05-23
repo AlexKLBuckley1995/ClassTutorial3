@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace Version_3_C
+namespace Gallery3WinForm
 {
     public partial class InputBox : Form
     {

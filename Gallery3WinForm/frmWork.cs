@@ -1,18 +1,30 @@
 using System;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace Gallery3WinForm
 {
     public partial class frmWork : Form
     {
-        protected clsWork _Work;
+        protected clsAllWork _Work;
+        public delegate void LoadWorkFormDelegate(clsAllWork prWork);
+        public static void DispatchWorkForm(clsAllWork prWork)
+        {
+            Dictionary<char, Delegate> WorksForm = new Dictionary<char, Delegate>
+            {
+                {'P', new LoadWorkFormDelegate(frmPainting.Run) },
+                {'H', null },
+                {'S', null }
+            };
+            WorksForm[prWork.WorkType].DynamicInvoke(prWork);
+        }
 
         public frmWork()
         {
             InitializeComponent();
         }
 
-        public void SetDetails(clsWork prWork)
+        public void SetDetails(clsAllWork prWork)
         {
             _Work = prWork;
             updateForm();

@@ -1,4 +1,4 @@
-namespace Version_3_C
+namespace Gallery3WinForm
 {
     partial class frmSculpture
     {

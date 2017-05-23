@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Version_3_C
+namespace Gallery3WinForm
 {
     public static class Program
     {

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace Version_3_C
+namespace Gallery3WinForm
 {
     [Serializable()]
     public class clsArtistList : SortedDictionary<string, clsArtist>

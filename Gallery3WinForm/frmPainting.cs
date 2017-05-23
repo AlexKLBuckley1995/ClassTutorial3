@@ -9,7 +9,7 @@ namespace Gallery3WinForm
             InitializeComponent();
         }
 
-        public static void Run(clsPainting prPainting)
+        public static void Run(clsAllWork prPainting)
         {
             Instance.SetDetails(prPainting);
         }
@@ -17,19 +17,19 @@ namespace Gallery3WinForm
         protected override void updateForm()
         {
             base.updateForm();
-            clsPainting lcWork = (clsPainting)_Work;
-            txtWidth.Text = lcWork.Width.ToString();
-            txtHeight.Text = lcWork.Height.ToString();
-            txtType.Text = lcWork.Type;
+       //     clsPainting lcWork = (clsPainting)_Work;
+            txtWidth.Text = _Work.Width.ToString();
+            txtHeight.Text = _Work.Height.ToString();
+            txtType.Text = _Work.Type;
         }
 
         protected override void pushData()
         {
             base.pushData();
-            clsPainting lcWork = (clsPainting)_Work;
-            lcWork.Width = float.Parse(txtWidth.Text);
-            lcWork.Height = float.Parse(txtHeight.Text);
-            lcWork.Type = txtType.Text;
+   //         clsPainting lcWork = (clsPainting)_Work;
+            _Work.Width = float.Parse(txtWidth.Text);
+            _Work.Height = float.Parse(txtHeight.Text);
+            _Work.Type = txtType.Text;
         }
 
     }

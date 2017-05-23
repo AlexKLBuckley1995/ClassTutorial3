@@ -16,6 +16,7 @@ namespace Gallery3WinForm
 
     public class clsAllWork
     {
+        public char WorkType { get; set; }
         public string Name { get; set; }
         public DateTime Date { get; set; }
         public decimal Value { get; set; }
