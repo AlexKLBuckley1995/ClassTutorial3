@@ -51,20 +51,25 @@ namespace Gallery3WinForm
 
         private void UpdateDisplay()
         {
- //           if (_WorksList.SortOrder == 0)
-//            {
-//                _WorksList.SortByName();
-//                rbByName.Checked = true;
-//            }
-//            else
-//            {
-//                _WorksList.SortByDate();
-//                rbByDate.Checked = true;
-//            }
+            lstWorks.DataSource = null;
+            if (_Artist.WorksList != null)
+                lstWorks.DataSource = _Artist.WorksList;
 
-//            lstWorks.DataSource = null;
-//            lstWorks.DataSource = _WorksList;
-//            lblTotal.Text = Convert.ToString(_WorksList.GetTotalValue());
+
+            //           if (_WorksList.SortOrder == 0)
+            //            {
+            //                _WorksList.SortByName();
+            //                rbByName.Checked = true;
+            //            }
+            //            else
+            //            {
+            //                _WorksList.SortByDate();
+            //                rbByDate.Checked = true;
+            //            }
+
+            //            lstWorks.DataSource = null;
+            //            lstWorks.DataSource = _WorksList;
+            //            lblTotal.Text = Convert.ToString(_WorksList.GetTotalValue());
         }
 
         public void UpdateForm()

@@ -32,10 +32,37 @@ namespace Gallery3WinForm
                 {
                     Name = (string)lcResult.Rows[0]["Name"],
                     Speciality = (string)lcResult.Rows[0]["Speciality"],
-                    Phone = (string)lcResult.Rows[0]["Phone"]
+                    Phone = (string)lcResult.Rows[0]["Phone"],
+                    WorksList = getArtistsWork(Name)
                 };
             else
                 return null;
+        }
+
+        private List<clsAllWork> getArtistsWork(string Name)
+        {
+            Dictionary<string, object> par = new Dictionary<string, object>(1);
+            par.Add("Name", Name);
+            DataTable lcResult = clsDbConnection.GetDataTable("SELECT * FROm Work WHERE ArtistName = @Name", par);
+            List<clsAllWork> lcWorks = new List<clsAllWork>();
+            foreach (DataRow dr in lcResult.Rows)
+                lcWorks.Add(dataRow2AllWork(dr));
+            return lcWorks;
+        }
+
+        private clsAllWork dataRow2AllWork(DataRow prDataRow)
+        {
+            return new clsAllWork()
+            {
+                Name = Convert.ToString(prDataRow["Name"]),
+                Date = Convert.ToDateTime(prDataRow["Date"]),
+                Value = Convert.ToDecimal(prDataRow["Value"]),
+                Width = prDataRow["Width"] is DBNull ? (float?)null : Convert.ToSingle(prDataRow["Width"]),
+                Height = prDataRow["Height"] is DBNull ? (float?)null : Convert.ToSingle(prDataRow["Height"]),
+                Type = prDataRow["Type"] is DBNull ? (string)null : Convert.ToString(prDataRow["Type"]),
+                Weight = prDataRow["Weight"] is DBNull ? (float?)null : Convert.ToSingle(prDataRow["Weight"]),
+                Material = prDataRow["Material"] is DBNull ? (string)null : Convert.ToString(prDataRow["Material"]),
+            };
         }
 
         public string PutArtist(clsArtist prArtist)
