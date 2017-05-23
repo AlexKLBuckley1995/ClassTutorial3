@@ -69,6 +69,18 @@
     <Compile Include="frmPainting.designer.cs">
       <DependentUpon>frmPainting.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmPhotograph.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPhotograph.designer.cs">
+      <DependentUpon>frmPhotograph.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSculpture.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSculpture.designer.cs">
+      <DependentUpon>frmSculpture.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmWork.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +104,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmPainting.resx">
       <DependentUpon>frmPainting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPhotograph.resx">
+      <DependentUpon>frmPhotograph.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSculpture.resx">
+      <DependentUpon>frmSculpture.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmWork.resx">
       <DependentUpon>frmWork.cs</DependentUpon>

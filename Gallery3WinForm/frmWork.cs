@@ -13,8 +13,8 @@ namespace Gallery3WinForm
             Dictionary<char, Delegate> WorksForm = new Dictionary<char, Delegate>
             {
                 {'P', new LoadWorkFormDelegate(frmPainting.Run) },
-                {'H', null },
-                {'S', null }
+                {'H', new LoadWorkFormDelegate(frmPhotograph.Run) },
+                {'S', new LoadWorkFormDelegate(frmSculpture.Run) }
             };
             WorksForm[prWork.WorkType].DynamicInvoke(prWork);
         }
