@@ -19,6 +19,16 @@ namespace Gallery3WinForm
                     (await lcHttpClient.GetStringAsync("http://localhost:60064/api/gallery/GetArtistNames/")); //Use the HttpClient object to request a JSON string from the specified URL and deserialize it into a .NET object. 'await' is used to suspend the the operation of the GetStringAsync method from here on untl the asynchronous call returns a result
         }
 
+        internal async static Task<string> InsertWorkAsync(clsAllWork prWork)
+        {
+            return await InsertOrUpdateAsync(prWork, "http://localhost:60064/api/gallery/PostArtWork", "POST");
+        }
+
+        internal async static Task<string> UpdateWorkAsync(clsAllWork prWork)
+        {
+            return await InsertOrUpdateAsync(prWork, "http://localhost:60064/api/gallery/PutArtWork", "PUT");
+        }
+
         internal async static Task<clsArtist> GetArtistAsync(string prArtistName)
         {
             using (HttpClient lcHttpClient = new HttpClient())
@@ -44,6 +54,27 @@ namespace Gallery3WinForm
             using (HttpClient lcHttpClient = new HttpClient())
             {
                 HttpResponseMessage lcRespMessage = await lcHttpClient.SendAsync(lcReqMessage);
+                return await lcRespMessage.Content.ReadAsStringAsync();
+            }
+        }
+
+        internal async static Task<string> DeleteArtistAsync(string prName)
+        {
+            using (HttpClient lcHttpClient = new HttpClient())
+            {
+                HttpResponseMessage lcRespMessage = await lcHttpClient.DeleteAsync
+                ($"http://localhost:60064/api/gallery/DeleteArtist?Name=" + prName);
+                return await lcRespMessage.Content.ReadAsStringAsync();
+            }
+        }
+          
+
+        internal async static Task<string> DeleteArtworkAsync(clsAllWork prWork)
+        {
+            using (HttpClient lcHttpClient = new HttpClient())
+            {
+                HttpResponseMessage lcRespMessage = await lcHttpClient.DeleteAsync
+                ($"http://localhost:60064/api/gallery/DeleteArtWork?WorkName={prWork.Name}&ArtistName={prWork.ArtistName}");
                 return await lcRespMessage.Content.ReadAsStringAsync();
             }
         }

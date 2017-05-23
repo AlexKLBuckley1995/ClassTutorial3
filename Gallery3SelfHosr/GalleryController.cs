@@ -43,7 +43,7 @@ namespace Gallery3WinForm
         {
             Dictionary<string, object> par = new Dictionary<string, object>(1);
             par.Add("Name", Name);
-            DataTable lcResult = clsDbConnection.GetDataTable("SELECT * FROm Work WHERE ArtistName = @Name", par);
+            DataTable lcResult = clsDbConnection.GetDataTable("SELECT * FROM Work WHERE ArtistName = @Name", par);
             List<clsAllWork> lcWorks = new List<clsAllWork>();
             foreach (DataRow dr in lcResult.Rows)
                 lcWorks.Add(dataRow2AllWork(dr));
@@ -58,11 +58,13 @@ namespace Gallery3WinForm
                 Name = Convert.ToString(prDataRow["Name"]),
                 Date = Convert.ToDateTime(prDataRow["Date"]),
                 Value = Convert.ToDecimal(prDataRow["Value"]),
+                ArtistName = Convert.ToString(prDataRow["ArtistName"]),
                 Width = prDataRow["Width"] is DBNull ? (float?)null : Convert.ToSingle(prDataRow["Width"]),
                 Height = prDataRow["Height"] is DBNull ? (float?)null : Convert.ToSingle(prDataRow["Height"]),
                 Type = prDataRow["Type"] is DBNull ? (string)null : Convert.ToString(prDataRow["Type"]),
                 Weight = prDataRow["Weight"] is DBNull ? (float?)null : Convert.ToSingle(prDataRow["Weight"]),
                 Material = prDataRow["Material"] is DBNull ? (string)null : Convert.ToString(prDataRow["Material"]),
+                
             };
         }
 
@@ -109,11 +111,37 @@ namespace Gallery3WinForm
             }
         }
 
+        public string DeleteArtist(string Name)
+        { // delete
+            try
+            {
+                int lcRecCount = clsDbConnection.Execute(
+                "DELETE FROM Artist WHERE Name = @Name",
+                prepareArtistDeletionParameters(Name));
+                if (lcRecCount == 1)
+                    return "One artist deleted";
+                else
+                    return "Unexpected artist deletion count: " + lcRecCount;
+            }
+            catch (Exception ex)
+            {
+                return ex.GetBaseException().Message;
+            }
+        }
+
+        private Dictionary<string, object> prepareArtistDeletionParameters(string prName)
+        {
+            Dictionary<string, object> par = new Dictionary<string, object>(1);
+            par.Add("Name", prName);
+            return par;
+        }
+
+
         public string PutArtWork(clsAllWork prWork)
         {
             try
             {
-                int lcRecCount = clsDbConnection.Execute("UPDATE Work SET WorkType= @WorkType, Name = @Name, Date = @Date, Value = @Value, Width = @Width, Height = @Height, Weight = @Weight, Material = @Material, ArtistName = @ArtistName",
+                int lcRecCount = clsDbConnection.Execute("UPDATE Work SET WorkType= @WorkType, Name = @Name, Date = @Date, Value = @Value, Width = @Width, Height = @Height, Weight = @Weight, Material = @Material, ArtistName = @ArtistName WHERE Name = @Name",
                     prepareWorkParameters(prWork));
                 if (lcRecCount == 1)
                     return "One artwork updated";
@@ -145,6 +173,33 @@ namespace Gallery3WinForm
             }
         }
 
+        public string DeleteArtwork(string WorkName, string ArtistName)
+        { // update
+            try
+            {
+                int lcRecCount = clsDbConnection.Execute(
+                "DELETE FROM Work WHERE Name = @Name AND ArtistName = @ArtistName",
+                prepareWorkDeletionParameters(WorkName, ArtistName));
+                if (lcRecCount == 1)
+                    return "One artwork deleted";
+                else
+                    return "Unexpected artwork deletion count: " + lcRecCount;
+            }
+            catch (Exception ex)
+            {
+                return ex.GetBaseException().Message;
+            }
+        }
+
+        private Dictionary<string, object> prepareWorkDeletionParameters(string prWorkName, string prArtistName)
+        {
+            Dictionary<string, object> par = new Dictionary<string, object>(2);
+            par.Add("Name", prWorkName);
+            par.Add("ArtistName", prArtistName);
+            return par;
+        }
+
+
         private Dictionary<string, object> prepareWorkParameters(clsAllWork prWork)
         {
             Dictionary<string, object> par = new Dictionary<string, object>(10);
@@ -157,6 +212,7 @@ namespace Gallery3WinForm
             par.Add("Type", prWork.Type);
             par.Add("Weight", prWork.Weight);
             par.Add("Material", prWork.Material);
+            par.Add("ArtistName", prWork.ArtistName);
             return par;
         }
     }     

@@ -25,7 +25,20 @@ namespace Gallery3WinForm
         public string Type { get; set; }
         public float? Weight { get; set; }
         public string Material { get; set; }
-        
+        public string ArtistName { get; set; }
+
+        public static readonly string FACTORY_PROMPT = "Enter P for Painting, S for Sculpture and H for Photograph";
+
+        public static clsAllWork NewWork(char prChoice)
+        {
+            switch (char.ToUpper(prChoice))
+            {
+                case 'P': return new clsAllWork { WorkType = 'P' };
+                case 'S': return new clsAllWork { WorkType = 'S' };
+                case 'H': return new clsAllWork { WorkType = 'H' };
+                default: return null;
+            }
+        }
 
         public override string ToString()
         {

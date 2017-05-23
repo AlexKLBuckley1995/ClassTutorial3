@@ -28,6 +28,7 @@ namespace Gallery3WinForm
             base.pushData();
      //       clsPhotograph lcWork = (clsPhotograph)_Work;
             _Work.Width = float.Parse(txtWidth.Text);
+
             _Work.Height = float.Parse(txtHeight.Text);    
             _Work.Type = txtType.Text;
         }

@@ -25,5 +25,6 @@ namespace Gallery3WinForm
         public string Type { get; set; }
         public float? Weight { get; set; }
         public string Material { get; set; }
+        public string ArtistName { get; set; }
     }
 }
