@@ -23,7 +23,7 @@ namespace Gallery3WinForm
         public clsArtist GetArtist(string Name)
         {
             Dictionary<string, object> par = new Dictionary<string, object>(1);
-            par.Add("Name", Name); 
+            par.Add("Name", Name);
             DataTable lcResult =
             clsDbConnection.GetDataTable("SELECT * FROM Artist WHERE Name = @Name", par); //Prepare the SQL statement and call the db-connection accordingly. This uses a parameterterized query because it is using a placeholder @Name and the value is delivered seperately. These parameters exist in a Dictionary<string, object>
 
@@ -108,5 +108,56 @@ namespace Gallery3WinForm
                 return ex.GetBaseException().Message;
             }
         }
-    }
+
+        public string PutArtWork(clsAllWork prWork)
+        {
+            try
+            {
+                int lcRecCount = clsDbConnection.Execute("UPDATE Work SET WorkType= @WorkType, Name = @Name, Date = @Date, Value = @Value, Width = @Width, Height = @Height, Weight = @Weight, Material = @Material, ArtistName = @ArtistName",
+                    prepareWorkParameters(prWork));
+                if (lcRecCount == 1)
+                    return "One artwork updated";
+                else
+                    return "Unexpected artwork update count: " + lcRecCount;
+            }
+            catch (Exception ex)
+            {
+                return ex.GetBaseException().Message;
+            }
+        }
+
+        public string PostArtWork(clsAllWork prWork)
+        { // insert 
+            try
+            {
+                int lcRecCount = clsDbConnection.Execute("INSERT INTO Work " +
+                    "(WorkType, Name, Date, Value, Width, Height, Type, Weight, Material, ArtistName) " +
+                    "VALUES (@WorkType, @Name, @Date, @Value, @Width, @Height, @Type, @Weight, @Material, @ArtistName)",
+                    prepareWorkParameters(prWork));
+                if (lcRecCount == 1)
+                    return "One artwork inserted";
+                else
+                    return "Unexpected artwork insert count: " + lcRecCount;
+            }
+            catch (Exception ex)
+            {
+                return ex.GetBaseException().Message;
+            }
+        }
+
+        private Dictionary<string, object> prepareWorkParameters(clsAllWork prWork)
+        {
+            Dictionary<string, object> par = new Dictionary<string, object>(10);
+            par.Add("WorkType", prWork.WorkType);
+            par.Add("Name", prWork.Name);
+            par.Add("Date", prWork.Date);
+            par.Add("Value", prWork.Value);
+            par.Add("Width", prWork.Width);
+            par.Add("Height", prWork.Height);
+            par.Add("Type", prWork.Type);
+            par.Add("Weight", prWork.Weight);
+            par.Add("Material", prWork.Material);
+            return par;
+        }
+    }     
 }
